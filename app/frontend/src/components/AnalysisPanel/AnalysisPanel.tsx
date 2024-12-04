@@ -26,10 +26,8 @@ interface Props {
     answer: ChatResponse;
 }
 
-const pivotItemDisabledStyle: React.CSSProperties = {
-    color: 'grey'
-    
-};
+const pivotItemDisabledStyle = { disabled: true, style: { color: "grey", background: "white" } };
+const pivotItemEnabledStyle = { disabled: false, style: { color: "black", background: "white" } };
 
 export const AnalysisPanel = ({ answer, activeTab, activeCitation, sourceFile, pageNumber, citationHeight, className, onActiveTabChanged }: Props) => {
     
@@ -163,8 +161,8 @@ export const AnalysisPanel = ({ answer, activeTab, activeCitation, sourceFile, p
             <PivotItem
                 itemKey={AnalysisPanelTabs.ThoughtProcessTab}
                 headerText="Thought process"
-                headerButtonProps={isDisabledThoughtProcessTab ? { disabled: true, style: pivotItemDisabledStyle } : undefined}
-                
+                //headerButtonProps={isDisabledThoughtProcessTab ? { disabled: true, style: pivotItemDisabledStyle } : undefined}
+                headerButtonProps={isDisabledThoughtProcessTab ? pivotItemDisabledStyle : pivotItemEnabledStyle}
             >
                 <div className={styles.thoughtProcess} dangerouslySetInnerHTML={{ __html: sanitizedThoughts }}></div>
             </PivotItem>
@@ -173,10 +171,13 @@ export const AnalysisPanel = ({ answer, activeTab, activeCitation, sourceFile, p
                 itemKey={AnalysisPanelTabs.SupportingContentTab}
                 headerText="Supporting content"
                 
-                headerButtonProps={{
-                    disabled: isDisabledSupportingContentTab,
-                    style: isDisabledSupportingContentTab ?  pivotItemDisabledStyle : undefined,
-                }}
+                headerButtonProps={isDisabledSupportingContentTab ? pivotItemDisabledStyle : pivotItemEnabledStyle}
+
+                //headerButtonProps={{
+                //    disabled: isDisabledSupportingContentTab,
+                //    style: isDisabledSupportingContentTab ?  pivotItemDisabledStyle : undefined,
+                //}}
+
                 onRenderItemLink = {onRenderItemLink("Supporting content is unavailable.", tooltipRef2, isDisabledSupportingContentTab)}
             >
                 <SupportingContent supportingContent={answer.data_points} />
@@ -187,10 +188,11 @@ export const AnalysisPanel = ({ answer, activeTab, activeCitation, sourceFile, p
                 itemKey={AnalysisPanelTabs.CitationTab}
                 
                 headerText="Citation"
-                headerButtonProps={{
-                    disabled: isDisabledCitationTab,
-                    style: isDisabledCitationTab ?  pivotItemDisabledStyle : undefined,
-                }}
+                headerButtonProps={isDisabledCitationTab ? pivotItemDisabledStyle : pivotItemEnabledStyle}
+                //headerButtonProps={{
+                //    disabled: isDisabledCitationTab,
+                //    style: isDisabledCitationTab ?  pivotItemDisabledStyle : undefined,
+                //}}
                 onRenderItemLink = {onRenderItemLink("No active citation selected. Please select a citation from the citations list on the left.", tooltipRef3, isDisabledCitationTab)}
             > 
             
@@ -202,12 +204,12 @@ export const AnalysisPanel = ({ answer, activeTab, activeCitation, sourceFile, p
                         console.warn('Item is undefined');
                     }
                 }}>
-                    <PivotItem itemKey="indexedFile" headerText="Document Section">
+                    <PivotItem itemKey="indexedFile" headerText="Document Section" headerButtonProps={isDisabledSupportingContentTab ? pivotItemDisabledStyle : pivotItemEnabledStyle} >
                         {activeCitationObj === undefined ? (
                             <Text>Loading...</Text>
                         ) : 
                         (
-                            <div>
+                            <div className={styles.thoughtProcess}>
                                 <Separator>Metadata</Separator>
                                 <Label>File Name</Label><Text>{activeCitationObj.file_name}</Text>
                                 <Label>File URI</Label><Text>{activeCitationObj.file_uri}</Text>
@@ -220,7 +222,7 @@ export const AnalysisPanel = ({ answer, activeTab, activeCitation, sourceFile, p
                             </div>
                         )}
                     </PivotItem>
-                    <PivotItem itemKey="rawFile" headerText="Document">
+                    <PivotItem itemKey="rawFile" headerText="Document" headerButtonProps={isDisabledSupportingContentTab ? pivotItemDisabledStyle : pivotItemEnabledStyle}>
                         {getCitationURL() === '' ? (
                             <Text>Loading...</Text>
                         ) : ["docx", "xlsx", "pptx"].includes(sourceFileExt) ? (

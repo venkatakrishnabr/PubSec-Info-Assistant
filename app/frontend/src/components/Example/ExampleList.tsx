@@ -10,10 +10,10 @@ export type ExampleModel = {
     value: string;
 };
 
-const EXAMPLES: ExampleModel[] = [
-    { text: "Are there any radio telescopes in Australia?", value: "Are there any radio telescopes in Australia?" },
-    { text: "What are Microsoft's primary sources of revenue?", value: "What are Microsoft's primary sources of revenue?" },
-    { text: "What are some flavors of Breyers?", value: "What are some flavors of Breyers?" }
+const EXAMPLES: ExampleModel[] = [    
+    { text: "Describe each of the credit risk ratings", value: "Describe each of the credit risk ratings" },
+    { text: "What is the OCC's policy on using OCC information technology and resources?", value: "What is the OCC's policy on using OCC information technology and resources?" },
+    { text: "What is required of an internal audit program?", value: "What is required of an internal audit program?" }
 ];
 
 interface Props {

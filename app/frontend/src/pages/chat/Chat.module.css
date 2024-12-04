@@ -2,17 +2,19 @@
    Licensed under the MIT license. */
 
 .container {
+    background-size: cover;
     flex: 1;
     display: flex;
-    flex-direction: column;
-    margin-top: 20px;
+    flex-direction: column;    
+    margin-top: 5px;
 }
 
 .subHeader {
     display: flex;
     flex-direction: row;
     margin-bottom: 10px;
-    justify-content: space-between;
+    margin-left: 6em;
+    /*justify-content: space-between;*/
 }
 
 .chatRoot {
@@ -34,6 +36,17 @@
     overflow: hidden;
 }
 
+.chatEmptyStateHeadervalign {
+    /* display: flex;
+     align-items: center;*/
+ 
+     vertical-align: top;    
+     width: 80%;    
+     padding: 10px;
+     background-color: white;
+     border-radius: 5px
+ }
+
 .chatEmptyState {
     flex-grow: 1;
     display: flex;
@@ -54,25 +67,25 @@
 .chatEmptyStateTitle {
     display: contents;
     font-size: 3rem;
-    font-weight: 500;
-    margin-top: 0;
+    font-weight: 500;    
+    margin-top: 10;
     margin-bottom: 10px;
 }
 
 .chatEmptyObjectives {
-    padding-left: 160px;
+    /*padding-left: 160px;
     padding-right: 160px;
-    text-align: center;
-    font-size: 12px;
+    text-align: center;*/
+    font-size: 10px;
+    color:white;
+    width: 100px;
 }
 
-.chatEmptyObjectivesList {
-    text-align: center;
-    font-size: 12px;
-    display: flex;
-    flex-direction: row;
-    padding-bottom: 40px;
-    padding-top: 24px;
+.chatEmptyObjectivesList {	
+    flex-direction: column;
+    align-items: center;
+    width: 200px;
+    color: white;
 }
 
 .chatEmptyObjectivesListItem {
@@ -90,6 +103,28 @@
 .chatEmptyStateSubtitle {
     font-weight: 600;
     margin-bottom: 10px;
+}
+
+@media only screen and (max-height:450px) {
+    .chatEmptyStateSubtitle {
+    display: none;
+    }
+    }
+
+.chatEmptyStateSubtitle {    
+    margin-bottom: 10px;
+    color:#5e7aac;;
+    margin-top: 1em;
+    margin-left: 4em;
+    align-content: center;
+}
+
+.chatEmptyStateSubtitleC {
+    font-weight: 600;
+    margin-bottom: 10px;
+    align-items: left;
+    margin-top: 10em;    
+
 }
 
 @media only screen and (max-height: 780px) {
@@ -116,11 +151,16 @@
     max-height: calc(100vh - 313px); /* optional, adjust according to your layout */
 }
 
+.h2class{
+    font-size: 1.5em;
+    margin-bottom: 1em;
+    margin-left: 20%;
+}
+
 .chatMessageGpt {
     margin-bottom: 20px;
-    max-width: 80%;
-    display: flex;
-    min-width: 500px;
+    max-width: 80%;    
+    margin-bottom: 20px;
 }
 
 .chatMessageGptMinWidth {
@@ -128,25 +168,54 @@
     margin-bottom: 20px;
 }
 
+.chatAskAnything {
+    align-content: center;
+    align-items: center;
+}
+
 .chatInput {
     position: sticky;
     bottom: 0;
     flex: 0 0 100px;
-    padding-top: 12px;
+    padding-top: 0px;
     padding-bottom: 24px;
     padding-left: 24px;
     padding-right: 24px;
-    width: 100%;
+    width: 84%;
+    /*
     max-width: 1028px;
     background: #f2f2f2;
+    background:#a4a4a4 ;*/
+    background: transparent;        
+
+}
+
+.example {
+    word-break: break-word;    
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    margin-bottom: 5px;        
+    margin-top: 5px;
+    font-size: 12px;   
+    justify-content: center;
+    background-color: #5e7aac;
+    color:white;
+    width: 65%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.chatBackgroundGray {   
+    background-color:red ;          
+    color:#1B4AEF   
 }
 
 .chatAnalysisPanel {
-    flex: 1;
-    overflow-y: auto;
     max-height: 89vh;
     margin-left: 20px;
     margin-right: 20px;
+    border: black;
 }
 
 .chatSettingsSeparator {
@@ -155,6 +224,11 @@
 
 .loadingLogo {
     font-size: 28px;
+}
+
+.example1 {
+    display: flex;
+    justify-content: center;    
 }
 
 .commandsContainer {

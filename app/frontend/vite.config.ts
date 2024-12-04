@@ -1,23 +1,23 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import postcssNesting from 'postcss-nesting';
-import { nodePolyfills } from 'vite-plugin-node-polyfills'
-import rollupNodePolyFill from 'rollup-plugin-node-polyfills'
-
+ 
 // https://vitejs.dev/config/
+
 export default defineConfig({
-    plugins: [react(), nodePolyfills()],
+    plugins: [react()],
+    root: "./",
     build: {
         outDir: "../backend/static",
         emptyOutDir: true,
-        sourcemap: true,
-        rollupOptions: {
-            plugins: [
-                rollupNodePolyFill()
-            ]
-        }
+        sourcemap: true
     },
     server: {
+        host: '127.0.0.1',
+        watch: {
+          usePolling: true,
+          interval: 100, // Poll every 100ms
+        },
         proxy: {
             "/ask": "http://localhost:5000",
             "/chat": "http://localhost:5000"
@@ -29,11 +29,5 @@ export default defineConfig({
                 postcssNesting
             ],
         },
-    },
-    resolve: {
-        alias: {
-            buffer: 'rollup-plugin-node-polyfills/polyfills/buffer-es6',
-            process: 'rollup-plugin-node-polyfills/polyfills/process-es6'
-        }
     }
 });

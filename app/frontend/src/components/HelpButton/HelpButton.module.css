@@ -1,13 +1,14 @@
 /* Copyright (c) Microsoft Corporation.
    Licensed under the MIT license. */
 
-.container {
+   .container {
     display: flex;
     align-items: center;
     gap: 6px;
     cursor: pointer;
-    color: white;
+    color: white;    
 }
+
 .text-white {
     color: white;
     background-color: white;

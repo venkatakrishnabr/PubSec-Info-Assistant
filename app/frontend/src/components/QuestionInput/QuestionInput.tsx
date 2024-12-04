@@ -64,10 +64,11 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, onAd
     }
 
     return (
-        <Stack>
-            <Stack.Item>
-            <Stack horizontal className={styles.questionInputContainer}>
-                {showClearChat ? (
+        <Stack horizontalAlign="stretch" styles={{ root: { width: '100%' } }}>
+            <Stack.Item styles={{ root: { width: '100%' } }}>
+            <Stack horizontal className={styles.questionInputContainer}>                                
+                {/*
+                showClearChat ? (
                     <div className={styles.questionClearButtonsContainer}>
                         <div
                             className={styles.questionClearChatButton}
@@ -81,8 +82,9 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, onAd
                         </div>
                     </div>
                 )
-                : null}
-                <TextField
+                : null */
+                 }
+                <TextField style={{ backgroundColor: "white"}}
                     className={styles.questionInputTextArea}
                     placeholder={placeholder}
                     multiline
@@ -103,8 +105,8 @@ export const QuestionInput = ({ onSend, disabled, placeholder, clearOnSend, onAd
                 </div>
             </Stack>
             </Stack.Item>
-            <Stack.Item align="center">
-                <RAIPanel onAdjustClick={onAdjustClick} onRegenerateClick={onRegenerateClick} />
+            <Stack.Item align="center">                
+                <RAIPanel onClearClick={onClearClick} onAdjustClick={onAdjustClick} onRegenerateClick={onRegenerateClick} />
             </Stack.Item>
         </Stack>
     );

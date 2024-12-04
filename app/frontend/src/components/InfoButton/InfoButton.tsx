@@ -13,8 +13,8 @@ interface Props {
 export const InfoButton = ({ className, onClick }: Props) => {
     return (
         <div className={`${styles.container} ${className ?? ""}`} onClick={onClick}>
-            <Info24Regular />
-            <Text>{"Info"}</Text>
+            <Info24Regular />            
+            <Text className="text-black">{" "}</Text>
         </div>
     );
 };

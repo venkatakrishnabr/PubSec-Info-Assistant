@@ -3,7 +3,14 @@
 
 .container {
     display: flex;
+    align-items: right;
     align-items: center;
     gap: 6px;
     cursor: pointer;
+    margin-left: 20px;
+    color: rgb(87, 87, 92);  
+}
+.text-white {
+    color: white;
+    background-color: black;
 }

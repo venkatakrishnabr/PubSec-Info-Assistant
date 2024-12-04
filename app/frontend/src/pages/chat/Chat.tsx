@@ -19,6 +19,8 @@ import { UserChatMessage } from "../../components/UserChatMessage";
 import { AnalysisPanel, AnalysisPanelTabs } from "../../components/AnalysisPanel";
 import { SettingsButton } from "../../components/SettingsButton";
 import { InfoButton } from "../../components/InfoButton";
+import { HelpButton } from "../../components/HelpButton";
+import { HelpButtonOCCdata } from "../../components/HelpButtonOCCdata";
 import { ClearChatButton } from "../../components/ClearChatButton";
 import { ResponseLengthButtonGroup } from "../../components/ResponseLengthButtonGroup";
 import { ResponseTempButtonGroup } from "../../components/ResponseTempButtonGroup";
@@ -31,8 +33,8 @@ import React from "react";
 const Chat = () => {
     const [isConfigPanelOpen, setIsConfigPanelOpen] = useState(false);
     const [isInfoPanelOpen, setIsInfoPanelOpen] = useState(false);
-    const [retrieveCount, setRetrieveCount] = useState<number>(5);
-    const [useSuggestFollowupQuestions, setUseSuggestFollowupQuestions] = useState<boolean>(false);
+    const [retrieveCount, setRetrieveCount] = useState<number>(20);
+    const [useSuggestFollowupQuestions, setUseSuggestFollowupQuestions] = useState<boolean>(true);
     const [userPersona, setUserPersona] = useState<string>("analyst");
     const [systemPersona, setSystemPersona] = useState<string>("an Assistant");
     // Setting responseLength to 2048 by default, this will effect the default display of the ResponseLengthButtonGroup below.
@@ -70,6 +72,31 @@ const Chat = () => {
     const [answers, setAnswers] = useState<[user: string, response: ChatResponse][]>([]);
     const [answerStream, setAnswerStream] = useState<ReadableStream | undefined>(undefined);
     const [abortController, setAbortController] = useState<AbortController | undefined>(undefined);
+    const customPanelStyles = {
+        root: {
+          backgroundSize: 'cover',
+          backgroundColor: '#a4a4a4', // Set your desired background color here
+        },
+      };
+      const [isHover, setIsHover] = useState(false);
+      const boxStyle = {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+        fontSize: '15px',
+        cursor: 'pointer',
+        content: 'FoofFoo',
+        backgroundColor: isHover ? 'lightblue' : 'transparent',
+        color: isHover ? 'red' : 'green',        
+     };  
+
+
+     const handleMouseEnter = () => {
+        setIsHover(true);
+     };
+     const handleMouseLeave = () => {
+        setIsHover(false);
+     };
 
     async function fetchFeatureFlags() {
         try {
@@ -264,7 +291,7 @@ const Chat = () => {
     useEffect(() => chatMessageStreamEnd.current?.scrollIntoView({ behavior: "smooth" }), [isLoading]);
 
     const onRetrieveCountChange = (_ev?: React.SyntheticEvent<HTMLElement, Event>, newValue?: string) => {
-        setRetrieveCount(parseInt(newValue || "5"));
+        setRetrieveCount(parseInt(newValue || "20"));
     };
 
     const onUserPersonaChange = (_ev?: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
@@ -339,33 +366,51 @@ const Chat = () => {
     return (
         <div className={styles.container}>
             <div className={styles.subHeader}>
-                <ChatModeButtonGroup className="" defaultValue={activeChatMode} onClick={onChatModeChange} featureFlags={featureFlags} /> 
                 <div className={styles.commandsContainer}>
-                    <ClearChatButton className={styles.commandButton} onClick={clearChat} disabled={!lastQuestionRef.current || isLoading} />
-                    <SettingsButton className={styles.commandButton} onClick={() => setIsConfigPanelOpen(!isConfigPanelOpen)} />
-                    <InfoButton className={styles.commandButton} onClick={() => setIsInfoPanelOpen(!isInfoPanelOpen)} />
+                <HelpButton className={styles.commandButton} onClick={() => window.open('https://occtreasgovprod.sharepoint.com/:b:/s/CIO/SLAB/EbJNVY1PMFVEkK_u4sV2Y-4BYQtq04fnsFM1JXlUp2zNKA?e=lpmr0B', '_blank')} />                    
+                <HelpButtonOCCdata className={styles.commandButton} onClick={() => window.open('https://occtreasgovprod.sharepoint.com/:b:/s/CIO/SLAB/EQffAwWkJU5Dt9CT-VQCEnUBaL8GwJrqY3DOzB6ezgzw9w?e=OdK4Ez', '_blank')} />                                        
                 </div>
             </div>
             <div className={styles.chatRoot}>
                 <div className={styles.chatContainer}>
                     {!lastQuestionRef.current ? (
-                        <div className={styles.chatEmptyState}>
+                        <div style={{backgroundColor: 'white' }} className={styles.chatEmptyStateHeadervalign}>
                             {activeChatMode == ChatMode.WorkOnly ? 
-                                <div>
-                                    <div className={styles.chatEmptyStateHeader}> 
-                                        <BuildingMultipleFilled fontSize={"100px"} primaryFill={"rgba(27, 74, 239, 1)"} aria-hidden="true" aria-label="Chat with your Work Data logo" />
-                                        </div>
-                                    <h1 className={styles.chatEmptyStateTitle}>Chat with your work data</h1>
-                                </div>
-                            : activeChatMode == ChatMode.WorkPlusWeb ?
-                                <div>
-                                    <div className={styles.chatEmptyStateHeader}> 
-                                        <BuildingMultipleFilled fontSize={"80px"} primaryFill={"rgba(27, 74, 239, 1)"} aria-hidden="true" aria-label="Chat with your Work and Web Data logo" /><AddFilled fontSize={"50px"} primaryFill={"rgba(0, 0, 0, 0.7)"} aria-hidden="true" aria-label=""/><GlobeFilled fontSize={"80px"} primaryFill={"rgba(24, 141, 69, 1)"} aria-hidden="true" aria-label="" />
+                                    <div className={styles.example1}>                                     
+                                        <div> 
+                                            <h1 className={styles.chatEmptyStateTitle}>Search and Summarize OCC data</h1>                                        
+                                        </div>  
                                     </div>
-                                    <h1 className={styles.chatEmptyStateTitle}>Chat with your work and web data</h1>
+                                    <div className={styles.example1}>                                     
+                                        <div style={{ textAlign: 'center' }}> 
+                                            <span>Need to find information from the Examiner's Library or OCCnet?<br/>
+                                                  Try this next-generation AI-assisted search.</span>
+                                        </div>                                    
+                                   </div>
+
+                            : activeChatMode == ChatMode.WorkPlusWeb ?
+                                <><div className={styles.example1}> 
+                                    <div className={styles.example}> 
+                                        <span >
+                                            You are accessing a system providing Generative artificial intelligence (AI) capabilities. You must not enter, upload, or otherwise transmit OCC non-public information, including financial supervision information, to this service. All use of this service via OCC-issued devices is subject to OCC policy, including Secure Use of OCC Information Resources PPM-4300-2 and Proper Handling of Controlled Unclassified Information PPM-4120-2 , which describe employee responsibilities to protect OCC systems and information, as well as applicable whistleblower protections under 5 U.S.C. 2302(b)(13).
+                                        </span>
+                                       </div>
+                                    </div> 
+                                    <div className={styles.example1}>                                     
+                                    <div> 
+                                        <h1 className={styles.chatEmptyStateTitle}>Chat with your work and web data</h1>
+                                    </div>
+                                    </div>
+                                    <div className={styles.example1}>                                     
+                                    <div> 
+                                        <span>Information Assistant uses AI. Check for mistakes.</span>
+                                    </div>    
                                 </div>
                             : //else Ungrounded
                                 <div>
+                                    <span className={styles.chatEmptyObjectives}>
+                                        <i>You are accessing a system providing Generative artificial intelligence (AI) capabilities. You must not enter, upload, or otherwise transmit OCC non-public information, including financial supervision information, to this service. All use of this service via OCC-issued devices is subject to OCC policy, including Secure Use of OCC Information Resources PPM-4300-2 and Proper Handling of Controlled Unclassified Information PPM-4120-2 , which describe employee responsibilities to protect OCC systems and information, as well as applicable whistleblower protections under 5 U.S.C. 2302(b)(13). </i>
+                                    </span>
                                     <div className={styles.chatEmptyStateHeader}> 
                                         <ChatSparkleFilled fontSize={"80px"} primaryFill={"rgba(0, 0, 0, 0.35)"} aria-hidden="true" aria-label="Chat logo" />
                                     </div>
@@ -438,7 +483,7 @@ const Chat = () => {
                         )}
                         <QuestionInput
                             clearOnSend
-                            placeholder="Type a new question (e.g. Who are Microsoft's top executives, provided as a table?)"
+                            placeholder="Type a new question (e.g. Who are OCC's top executives, provided as a table?)"
                             disabled={isLoading}
                             onSend={question => makeApiRequest(question, defaultApproach, {}, {}, {})}
                             onAdjustClick={() => setIsConfigPanelOpen(!isConfigPanelOpen)}
@@ -448,6 +493,17 @@ const Chat = () => {
                             onRegenerateClick={() => makeApiRequest(lastQuestionRef.current, defaultApproach, {}, {}, {})}
                         />
                     </div>
+                    <div className={styles.example1} style={{ position: 'relative', width: '100%' }}>                               
+                        <div style={{ textAlign: 'left', fontSize: 14, width: '50%', backgroundColor: 'lightgrey', padding: '1em', borderRadius: '5px' }}> 
+                            <span>
+                                OCCInfoAssist is a generative Artifical Intelligence (AI) service. You are accountable for ensuring the accuracy and integrity of all AI-generated products from this service that you integrate or introduce into your OCC tasks and work products, in alignment with applicable agency-wide or organizational unit standards.
+                            </span>
+                        </div>
+                        <div  style={{ position: 'absolute', bottom: '0', right: '20px' }}>
+                            <InfoButton className={styles.commandButton} onClick={() => setIsInfoPanelOpen(!isInfoPanelOpen)} />
+                        </div>
+                    </div>
+
                 </div>
 
                 {answers.length > 0 && activeAnalysisPanelTab && (
@@ -462,8 +518,8 @@ const Chat = () => {
                         activeTab={activeAnalysisPanelTab}
                     />
                 )}
-
-                <Panel
+                <div className={styles.chatBackgroundGray}>
+                <Panel                    
                     headerText="Configure answer generation"
                     isOpen={isConfigPanelOpen}
                     isBlocking={false}
@@ -512,8 +568,10 @@ const Chat = () => {
                         </div>
                     }
                 </Panel>
-
-                <Panel
+                </div>
+                
+                <div>
+                <Panel                   
                     headerText="Information"
                     isOpen={isInfoPanelOpen}
                     isBlocking={false}
@@ -521,7 +579,7 @@ const Chat = () => {
                     closeButtonAriaLabel="Close"
                     onRenderFooterContent={() => <DefaultButton onClick={() => setIsInfoPanelOpen(false)}>Close</DefaultButton>}
                     isFooterAtBottom={true}                >
-                    <div className={styles.resultspanel}>
+                    <div>
                         <InfoContent />
                     </div>
                 </Panel>

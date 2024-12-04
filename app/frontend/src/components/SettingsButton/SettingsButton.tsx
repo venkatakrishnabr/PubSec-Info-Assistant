@@ -14,8 +14,8 @@ interface Props {
 export const SettingsButton = ({ className, onClick }: Props) => {
     return (
         <div className={`${styles.container} ${className ?? ""}`} onClick={onClick}>
-            <Options24Filled />
-            <Text>{"Adjust"}</Text>
+            <Options24Filled />            
+            <Text className="text-white">{"Adjust"}</Text>
         </div>
     );
 };

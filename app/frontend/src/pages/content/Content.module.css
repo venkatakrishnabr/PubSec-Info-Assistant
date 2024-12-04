@@ -63,9 +63,14 @@
     width: 100%;
   }
   
-.fileIconImg {
+  .fileIconImg {
     width: 24px;
-    height: 24px;
+    height: 24px;	
+    padding-left: 160px;
+    padding-right: 160px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
 }
 
 .EmptyObjectives {
@@ -73,16 +78,16 @@
   padding-right: 160px;
   text-align: center;
   font-size: 14px;
+  
 }
 
 .EmptyObjectivesList {
-  text-align: center;
-  font-size: 14px;
-  display: flex;
-  flex-direction: row;
-  padding-bottom: 50px;
-  padding-top: 30px;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+  background-color: white;
 }
+
 
 .EmptyObjectivesListItem {
   display: flex;

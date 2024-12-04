@@ -11,7 +11,7 @@ import { getAllUploadStatus, FileUploadBasicStatus, GetUploadStatusRequest, File
 
 import styles from "./FileStatus.module.css";
 
-const dropdownTimespanStyles: Partial<IDropdownStyles> = { dropdown: { width: 150 } };
+const dropdownTimespanStyles: Partial<IDropdownStyles> = { dropdown: { width: 150, color: 'white' } };
 const dropdownFileStateStyles: Partial<IDropdownStyles> = { dropdown: { width: 200 } };
 const dropdownFolderStyles: Partial<IDropdownStyles> = { dropdown: { width: 200 } };
 const dropdownTagStyles: Partial<IDropdownStyles> = { dropdown: { width: 200 } };
