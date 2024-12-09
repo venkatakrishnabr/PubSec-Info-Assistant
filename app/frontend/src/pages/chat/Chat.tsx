@@ -422,9 +422,11 @@ const Chat = () => {
                             <span className={styles.chatEmptyObjectives}>
                                 <i>Information Assistant uses AI. Check for mistakes.   </i>
                             </span>
-                            {activeChatMode != ChatMode.Ungrounded &&
-                                <div>
-                                    <h2 className={styles.chatEmptyStateSubtitle}>Ask anything or try an example</h2>
+                            {activeChatMode != ChatMode.Ungrounded &&                                 
+                                <div className={styles.chatEmptyStateSubtitle}>     
+                                    <div className={styles.chatAskAnything}>                                                                
+                                    <span className={styles.h2class}>Ask anything or try an example</span>
+                                    </div>                                    
                                     <ExampleList onExampleClicked={onExampleClicked} />
                                 </div>
                             }
