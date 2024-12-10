@@ -367,8 +367,8 @@ const Chat = () => {
         <div className={styles.container}>
             <div className={styles.subHeader}>
                 <div className={styles.commandsContainer}>
-                <HelpButton className={styles.commandButton} onClick={() => window.open('https://occtreasgovprod.sharepoint.com/:b:/s/CIO/SLAB/EbJNVY1PMFVEkK_u4sV2Y-4BYQtq04fnsFM1JXlUp2zNKA?e=lpmr0B', '_blank')} />                    
-                <HelpButtonOCCdata className={styles.commandButton} onClick={() => window.open('https://occtreasgovprod.sharepoint.com/:b:/s/CIO/SLAB/EQffAwWkJU5Dt9CT-VQCEnUBaL8GwJrqY3DOzB6ezgzw9w?e=OdK4Ez', '_blank')} />                                        
+                <HelpButton className={styles.commandButton} onClick={() => window.open('https://occtreasgovprod.sharepoint.com/:b:/s/CIO/SLAB/EU71UmFJwRVArj2AxZg6wWgBE_c6fv5IZ_0zG_MHcAWxkg?e=CCF7Fo', '_blank')} />                    
+                <HelpButtonOCCdata className={styles.commandButton} onClick={() => window.open('https://occtreasgovprod.sharepoint.com/:b:/s/CIO/SLAB/EWAQp03n9ARLuRVZ52YuzsUBlosMXfArQkOvY7AScNlHLw?e=SqdZte', '_blank')} />                                        
                 </div>
             </div>
             <div className={styles.chatRoot}>
@@ -487,7 +487,7 @@ const Chat = () => {
                         )}
                         <QuestionInput
                             clearOnSend
-                            placeholder="Type a new question (e.g. Who are OCC's top executives, provided as a table?)"
+                            placeholder="Type a new question (e.g. How does OCC conduct bank supervision?)"
                             disabled={isLoading}
                             onSend={question => makeApiRequest(question, defaultApproach, {}, {}, {})}
                             onAdjustClick={() => setIsConfigPanelOpen(!isConfigPanelOpen)}
