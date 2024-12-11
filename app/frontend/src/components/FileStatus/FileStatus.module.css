@@ -30,7 +30,6 @@
 .refreshicon {
     margin-top: 3px;
     margin-left: 3px;
-    background-color: #a4a4a4 ;
 }
 
 .refreshtext {
@@ -44,6 +43,7 @@
     flex-direction: column;
     gap: 6px;
     width: 80%;
+    background-color: #a4a4a4 ;    
 }
 
 @keyframes loading {

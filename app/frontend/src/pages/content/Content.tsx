@@ -2,8 +2,7 @@
 // Licensed under the MIT license.
 
 import { useState } from 'react';
-import { Pivot,
-    PivotItem } from "@fluentui/react";
+import { compareDates, Pivot, PivotItem, Text } from "@fluentui/react";
 import { ITag } from '@fluentui/react/lib/Pickers';
 import { FilePicker } from "../../components/filepicker/file-picker";
 import { FileStatus } from "../../components/FileStatus/FileStatus";
@@ -37,18 +36,28 @@ const Content = () => {
 
     const handleLinkClick = (item?: PivotItem) => {
         setSelectedKey(undefined);
-    };    
+    };
+
 
     return (
-        <div className={styles.contentArea} >
-            <Pivot aria-label="Upload Files Section" className={styles.topPivot} onLinkClick={handleLinkClick}>
-                <PivotItem headerText="Upload Files" aria-label="Upload Files Tab">
+        <div>
+            <Pivot styles={{
+                text: {
+                    color: "white",
+                    selectors: {
+                        ":hover": {
+                            color: "black",
+                        }
+                    }
+                },
+            }} aria-label="Upload Files Section" onLinkClick={handleLinkClick}>
+                <PivotItem headerText="Upload Files" className={styles.App} aria-label="Upload Files Tab">
                     <div className={styles.App} >
                         <div style={{ marginBottom: '20px', marginTop: '20px' }}>
                             <SparkleFilled fontSize={"60px"} primaryFill={"rgba(115, 118, 225, 1)"} aria-hidden="true" aria-label="Supported File Types" />
                             <h1 className={styles.EmptyStateTitle}>Supported file types</h1>
                             <span className={styles.EmptyObjectives}>
-                                The Information Assistant agent template currently supports the following file types:
+                                The Information Assistant Accelerator currently supports the following file types:
                             </span>
                             <span className={styles.EmptyObjectivesList}>
                                 <span className={styles.EmptyObjectivesListItem}>
