@@ -212,8 +212,6 @@
 }
 
 .chatAnalysisPanel {
-    flex: 1;
-    overflow-y: auto;
     max-height: 89vh;
     margin-left: 20px;
     margin-right: 20px;
