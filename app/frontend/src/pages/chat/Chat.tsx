@@ -384,8 +384,7 @@ const Chat = () => {
                                     </div>
                                     <div className={styles.example1}>                                     
                                         <div style={{ textAlign: 'center' }}> 
-                                            <span>Need to find information from the Examiner's Library or OCCnet?<br/>
-                                                  Try this next-generation AI-assisted search.</span>
+                                            <span>Find bank supervision and other OCC policy information from Examiner's Library.</span>
                                         </div>                                    
                                    </div>
                                 </div>
@@ -487,7 +486,7 @@ const Chat = () => {
                         )}
                         <QuestionInput
                             clearOnSend
-                            placeholder="Type a new question (e.g. How does OCC conduct bank supervision?)"
+                            placeholder="Type a new question (e.g. What are the most recent rules around cash accounts.)"
                             disabled={isLoading}
                             onSend={question => makeApiRequest(question, defaultApproach, {}, {}, {})}
                             onAdjustClick={() => setIsConfigPanelOpen(!isConfigPanelOpen)}
