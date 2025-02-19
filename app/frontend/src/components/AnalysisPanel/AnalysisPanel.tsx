@@ -76,82 +76,115 @@ export const AnalysisPanel = ({ answer, activeTab, activeCitation, sourceFile, p
             if (sourceFileBlob === undefined) {
                 if (!isFetchingSourceFileBlob) {
                     setIsFetchingSourceFileBlob(true);
-                    sourceFileBlobPromise = fetchCitationSourceFile().finally(() => {
+                    if (sourceFileUrl !== undefined) {
+                        sourceFileBlobPromise = fetchCitationSourceFile().finally(() => {
+                            setIsFetchingSourceFileBlob(false);
+                        });
+                    } else {
+                        console.error("sourceFileUrl is undefined");
                         setIsFetchingSourceFileBlob(false);
-                    });
+                    }
                 }
                 await sourceFileBlobPromise;
             }
         };
-        fetchSourceFileBlob();
-        return sourceFileUrl;
-    }
-
-    async function fetchActiveCitationObj() {
-        try {
-            const citationObj = await getCitationObj(activeCitation as string);
-            setActiveCitationObj(citationObj);
-            console.log(citationObj);
-        } catch (error) {
-            // Handle the error here
-            console.log(error);
+    
+        if (sourceFileBlob !== undefined) {
+            fetchSourceFileBlob();
+            
         }
+        return sourceFileUrl ?? '';
     }
 
-
-    useEffect(() => {
-        if (!sourceFile) {
+async function fetchActiveCitationObj() {
+    try {
+        if (!activeCitation) {
+            console.warn('Active citation is undefined');
+            setActiveCitationObj(undefined);
             return;
         }
-        const fetchMarkdownContent = async () => {
-            try {
-                const response = await fetch(getCitationURL());
-                const content = await response.text();
-                setMarkdownContent(content);
-            } catch (error) {
-                console.error('Error fetching Markdown content:', error);
+        const citationObj = await getCitationObj(activeCitation);
+        setActiveCitationObj(citationObj);
+        console.log(citationObj);
+    } catch (error) {
+        // Handle the error here
+        console.log(error);
+    }
+}
+
+useEffect(() => {
+    const fetchMarkdownContent = async () => {
+        try {
+            if (!sourceFile) {
+                console.error('Source file is undefined');
+                return;
             }
-        };
+            const citationURL = getCitationURL();
+            if (!citationURL) {
+                throw new Error('Citation URL is undefined');
+            }
+            const response = await fetch(citationURL);
+            const content = await response.text();
+            setMarkdownContent(content);
+        } catch (error) {
+            console.error('Error fetching Markdown content:', error);
+        }
+    };
 
         fetchMarkdownContent();
     }, [sourceFileBlob, sourceFileExt]);
 
-    useEffect(() => {
-        const fetchPlainTextContent = async () => {
-            try {
-                const response = await fetch(getCitationURL());
-                const content = await response.text();
-                setPlainTextContent(content);
-            } catch (error) {
-                console.error('Error fetching plain text content:', error);
+useEffect(() => {
+    const fetchPlainTextContent = async () => {
+        try {
+            if (!sourceFile) {
+                console.error('Source file is undefined');
+                return;
             }
-        };
-    
-        if (["json", "txt", "xml"].includes(sourceFileExt)) {
-            fetchPlainTextContent();
-        }
-    }, [sourceFileBlob, sourceFileExt]);
 
-    useEffect(() => {
-        if (activeCitation) {
-            setInnerPivotTab('indexedFile');
+            const citationURL = getCitationURL();
+            if (!citationURL) {
+                throw new Error('Citation URL is undefined');
+            }
+            const response = await fetch(citationURL);
+            const content = await response.text();
+            setPlainTextContent(content);
+        } catch (error) {
+            console.error('Error fetching plain text content:', error);
         }
-        fetchActiveCitationObj();
-        const fetchSourceFileBlob = async () => {
-            
-                if (!isFetchingSourceFileBlob) {
-                    setIsFetchingSourceFileBlob(true);
-                    sourceFileBlobPromise = fetchCitationSourceFile().finally(() => {
-                        setIsFetchingSourceFileBlob(false);
-                    });
-                }
-                await sourceFileBlobPromise;
-            
-        };
-        fetchSourceFileBlob();
-        
-    }, [activeCitation]);
+    };
 
+    if (["json", "txt", "xml"].includes(sourceFileExt)) {
+        fetchPlainTextContent();
+    }
+}, [sourceFileBlob, sourceFileExt]);
+
+useEffect(() => {
+    if (activeCitation) {
+        setInnerPivotTab('indexedFile');
+    } else {
+        console.warn('Active citation is undefined');
+        setActiveCitationObj(undefined);
+    }
+
+    fetchActiveCitationObj();
+
+    const fetchSourceFileBlob = async () => {
+        if (!sourceFile) {
+            console.error('Source file is undefined');
+            return;
+        }
+        if (!isFetchingSourceFileBlob) {
+            setIsFetchingSourceFileBlob(true);
+            sourceFileBlobPromise = fetchCitationSourceFile().finally(() => {
+                setIsFetchingSourceFileBlob(false);
+            });
+        }
+        await sourceFileBlobPromise;
+    };
+
+    fetchSourceFileBlob();
+}, [activeCitation]);
     return (
         <Pivot
             className={className}
